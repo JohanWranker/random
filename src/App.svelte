@@ -5,6 +5,8 @@
   function handleClick() {
     active = !active;
     colour = colours[Math.floor(Math.random() * colours.length)];
+    var track = active ? "tick.mp3" : "tock.mp3";
+    new Audio(track).play();
   }
 </script>
 
