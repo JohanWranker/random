@@ -18,7 +18,7 @@
       style="--theme-color: transparent"
       class="box"
       on:click={handleClick}
-      src="/FBC_Lerum_logo.jpg"
+      src="FBC_Lerum_logo.jpg"
       alt="Click me"
     />
   {/if}
