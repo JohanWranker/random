@@ -1,8 +1,11 @@
-import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
 
-/** @type {import('vite').UserConfig} */
-const config = {
-	plugins: [sveltekit()]
-};
+// https://vitejs.dev/config/
+export default defineConfig({
+  base: "/random/",
+  usePolling: true,
+  plugins: [svelte()]
+},
+  { usePolling: true })
 
-export default config;
