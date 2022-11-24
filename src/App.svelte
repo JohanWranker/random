@@ -2,11 +2,13 @@
   const colours = ["yellow", "red", "green", "blue", "black"];
   let active = false;
   let colour;
+  let tick = new Audio("tick.mp3");
+  let tock = new Audio("tock.mp3");
   function handleClick() {
     active = !active;
     colour = colours[Math.floor(Math.random() * colours.length)];
-    var track = active ? "tick.mp3" : "tock.mp3";
-    new Audio(track).play();
+    var audio = active ? tick : tock;
+    audio.play();
   }
 </script>
 
