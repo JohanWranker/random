@@ -1,21 +1,64 @@
 <script>
   const colours = ["yellow", "red", "green", "blue", "black"];
+  let soundddd = [
+    new Audio("yellow.mp3"),
+    new Audio("red.mp3"),
+    new Audio("green.mp3"),
+    new Audio("blue.mp3"),
+    new Audio("black.mp3"),
+  ];
+
+  let sounds = [];
   let active = false;
-  let colour;
-  let tick = new Audio("tick.mp3");
-  let tock = new Audio("tock.mp3");
+  let index = 0;
+  let init = false;
+
+  //for (let i = 0; i < colours.length; i++) {
+  //var path = colours[i] + ".mp3";
+  //var sound = new Audio(path);
+  //sound.preload = "auto";
+  //sounds.push(sound);
+  //}
+
+  //for (let name of colours)
+  //var path = name + ".mp3";
+  // var sound = new Audio(path);
+  // sound.preload = "auto";
+  // sounds.push(sound);
+
+  async function playsound() {
+    if (init == false) {
+      init = true;
+      for (let name of colours) {
+        console.log(name);
+        var path = name + ".mp3";
+        var sound = new Audio(path);
+        sound.preload = "auto";
+        sound.playbackRate = 2;
+        sounds.push(sound);
+      }
+    }
+    if (active) {
+      sounds[index].play();
+      console.log(index);
+    }
+  }
+
   function handleClick() {
     active = !active;
-    colour = colours[Math.floor(Math.random() * colours.length)];
-    var audio = active ? tick : tock;
-    audio.play();
+    index = Math.floor(Math.random() * colours.length);
+    playsound();
   }
 </script>
 
 <main>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   {#if active}
-    <div style="--theme-color: {colour}" class="box" on:click={handleClick} />
+    <div
+      style="--theme-color: {colours[index]}"
+      class="box"
+      on:click={handleClick}
+    />
   {:else}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <img
