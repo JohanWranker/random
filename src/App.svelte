@@ -1,36 +1,28 @@
 <script>
   const colours = ["yellow", "red", "green", "blue", "black"];
 
-  let sounds = [];
+  let sounds = {};
   let active = false;
-  let index = 0;
-  let init = false;
+  let colour;
   let innerHeight;
+  let last_time;
 
-  let last_time = window.performance.now();
-  
+  (function () {
+    for (let name of colours) {
+      var sound = new Audio(name + ".mp3");
+      sound.preload = "auto";
+      sound.playbackRate = 2;
+      sounds[name] = sound;
+    }
+  })();
 
   async function playsound() {
-    if (init == false) {
-      init = true;
-      for (let name of colours) {
-        console.log(name);
-        var path = name + ".mp3";
-        var sound = new Audio(path);
-        sound.preload = "auto";
-        sound.playbackRate = 2;
-        sounds.push(sound);
-      }
-    }
-    if (active) {
-      sounds[index].play();
-    }
+    sounds[colour].play();
   }
 
   function validClick() {
     var now = window.performance.now();
-    var diff = now - last_time; /* ms*/
-    if (active && diff < 200) {
+    if (active && now - last_time < 200 /* ms*/) {
       return false; /* ignore the click */
     }
     last_time = now;
@@ -41,9 +33,11 @@
     if (!validClick()) {
       return;
     }
-
     active = !active;
-    index = Math.floor(Math.random() * colours.length);
+    if (!active) {
+      return;
+    }
+    colour = colours[Math.floor(Math.random() * colours.length)];
     playsound();
   }
 </script>
@@ -57,7 +51,7 @@
       <div
         style="height: {innerHeight * 0.9}px; 
           width: 100%; 
-          background-color: {colours[index]}"
+          background-color: {colour}"
       />
     {:else}
       <img
