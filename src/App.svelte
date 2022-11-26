@@ -7,6 +7,9 @@
   let init = false;
   let innerHeight;
 
+  let last_time = window.performance.now();
+  
+
   async function playsound() {
     if (init == false) {
       init = true;
@@ -24,7 +27,21 @@
     }
   }
 
+  function validClick() {
+    var now = window.performance.now();
+    var diff = now - last_time; /* ms*/
+    if (active && diff < 200) {
+      return false; /* ignore the click */
+    }
+    last_time = now;
+    return true;
+  }
+
   function handleClick() {
+    if (!validClick()) {
+      return;
+    }
+
     active = !active;
     index = Math.floor(Math.random() * colours.length);
     playsound();
