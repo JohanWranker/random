@@ -22,7 +22,7 @@
 
   function validClick() {
     var now = window.performance.now();
-    if (active && now - last_time < 200 /* ms*/) {
+    if (active && now - last_time < 400 /* ms*/) {
       return false; /* ignore the click */
     }
     last_time = now;
